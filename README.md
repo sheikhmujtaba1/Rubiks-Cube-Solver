@@ -2,7 +2,7 @@ Name: Muhammad Mujtaba
 Class: Artificial Intelligence (CSC372)
 Assignment 1
 
-![UML Diagram](images/Rubiks cube UML.png)
+![UML Diagram](./images/Rubiks_cube_UML.png)
 
 Class Descriptions
 
