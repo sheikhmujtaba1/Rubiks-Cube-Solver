@@ -27,7 +27,7 @@ class RubiksCube {
         return true
     }
 
-    /* */
+    /* Rotates the cube's front face clockwise */
     fun verticalClockwise(): Unit {
         cubeDeepCopy = copyCube()
         for (i in 0..3) {
@@ -45,12 +45,14 @@ class RubiksCube {
         rubiksCubeModal[5][3] = cubeDeepCopy[5][2]
     }
 
+    /* Rotates the cube's front face Anti-clockwise */
     fun verticalAntiClockwise(): Unit {
         for (i in 0..2) {
             verticalClockwise()
         }
     }
 
+    /* Rotates the cube's back face clockwise */
     fun verticalBackClockwise(): Unit {
         cubeDeepCopy = copyCube()
         for (i in 0..3) {
@@ -68,12 +70,14 @@ class RubiksCube {
         rubiksCubeModal[4][3] = cubeDeepCopy[4][1]
     }
 
+    /* Rotates the cube's back face Anti-clockwise */
     fun verticalBackAntiClockwise(): Unit {
         for (i in 0..2) {
             verticalBackClockwise()
         }
     }
 
+    /* Rotates the cube's left face clockwise */
     fun verticalLeftFrontRotation(): Unit {
         cubeDeepCopy = copyCube()
         rubiksCubeModal[5][0] = cubeDeepCopy[0][0]
@@ -94,12 +98,14 @@ class RubiksCube {
         rubiksCubeModal[3][3] = cubeDeepCopy[3][2]
     }
 
+    /* Rotates the cube's left face Anti-clockwise */
     fun verticalLeftBackRotation(): Unit {
         for (i in 0..2) {
             verticalLeftFrontRotation()
         }
     }
 
+    /* Rotates the cube's right face clockwise */
     fun verticalRightFrontRotation(): Unit {
         cubeDeepCopy = copyCube()
         rubiksCubeModal[5][1] = cubeDeepCopy[0][3]
@@ -120,12 +126,14 @@ class RubiksCube {
         rubiksCubeModal[3][3] = cubeDeepCopy[3][1]
     }
 
+    /* Rotates the cube's right face Anti-clockwise */
     fun verticalRightBackRotation(): Unit {
         for (i in 0..2) {
             verticalRightFrontRotation()
         }
     }
 
+    /* Rotates the cube's top face clockwise */
     fun horizontalTopClockwise(): Unit {
         cubeDeepCopy = copyCube()
         rubiksCubeModal[5][2] = cubeDeepCopy[1][0]
@@ -146,12 +154,14 @@ class RubiksCube {
         rubiksCubeModal[0][3] = cubeDeepCopy[0][2]
     }
 
+    /* Rotates the cube's top face Anti-clockwise */
     fun horizontalTopAntiClockwise(): Unit {
         for (i in 0..2) {
             horizontalTopClockwise()
         }
     }
 
+    /* Rotates the cube's bottom face clockwise */
     fun horizontalBottomClockwise(): Unit {
         cubeDeepCopy = copyCube()
         rubiksCubeModal[5][0] = cubeDeepCopy[1][1]
@@ -172,12 +182,18 @@ class RubiksCube {
         rubiksCubeModal[2][3] = cubeDeepCopy[2][2]
     }
 
+    /* Rotates the cube's bottom face clockwise */
     fun horizontalBottomAntiClockwise(): Unit {
         for (i in 0..2) {
             horizontalBottomClockwise()
         }
     }
 
+    /*Print the cube in a way where
+    * The bottom face is on the extreme right
+    * Top face is on the extreme left
+    * Front face is on the bottom
+    * Back face on the top*/
     fun printCube(): Unit {
         print(rubiksCubeModal[4][2]+ " " + rubiksCubeModal[4][3] + "\n" +
                 rubiksCubeModal[4][0] + " " + rubiksCubeModal[4][1]+ "\n")
@@ -198,6 +214,7 @@ class RubiksCube {
         return
     }
 
+    /* Make a deep copy of the cube*/
     fun copyCube(): List<Array<String>> {
         return rubiksCubeModal.map { it.clone() }
     }
