@@ -14,4 +14,7 @@ fun main() {
         println(row.contentToString())
     }
     cube.printCube()
+    cube.verticalClockwise()
+    cube.randomize(2)
+    cube.printCube()
 }
