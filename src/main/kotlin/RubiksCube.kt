@@ -9,17 +9,23 @@ class RubiksCube {
     * */
 
     /* Rubiks Cube Modal using a 2d array representation*/
-    var rubiksCubeModal: Array<Array<String>> =
-        Array(6) { i -> Array<String>(4) { CubeColors.values()[i].printableName } }
+    var rubiksCubeModal: List<Array<String>> =
+        List(6) { i -> Array<String>(4) { CubeColors.values()[i].printableName } }
 
     /* variable/data structure to store a deep copy of the current state of the rubiks cube */
     var cubeDeepCopy: List<Array<String>> = rubiksCubeModal.map { it.clone() }
 
+    constructor()
+
+    constructor(originalCube: List<Array<String>>) {
+        rubiksCubeModal = originalCube
+    }
+
 
     /* Resets the rubiks cube back to a solved state
     *  Input: None, Output: Unit/None*/
-    fun reset(): Unit {
-        rubiksCubeModal = Array(6) { i -> Array<String>(4) { CubeColors.values()[i].printableName } }
+    fun reset() {
+        rubiksCubeModal = List(6) { i -> Array<String>(4) { CubeColors.values()[i].printableName } }
     }
 
     /*Checks whether the rubiks cube is solved and returns a boolean
@@ -31,7 +37,7 @@ class RubiksCube {
 
     /* Rotates the cube's front face clockwise
     *  Input: None, Output: Unit/None */
-    fun verticalClockwise(): Unit {
+    fun verticalClockwise() {
         cubeDeepCopy = copyCube()
         for (i in 0..3) {
             if (i == 3) {
@@ -50,7 +56,7 @@ class RubiksCube {
 
     /* Rotates the cube's front face Anti-clockwise
     *  Input: None, Output: Unit/None */
-    fun verticalAntiClockwise(): Unit {
+    fun verticalAntiClockwise() {
         for (i in 0..2) {
             verticalClockwise()
         }
@@ -58,7 +64,7 @@ class RubiksCube {
 
     /* Rotates the cube's back face clockwise
     *  Input: None, Output: Unit/None*/
-    fun verticalBackClockwise(): Unit {
+    fun verticalBackClockwise() {
         cubeDeepCopy = copyCube()
         for (i in 0..3) {
             if (i == 3) {
@@ -76,7 +82,7 @@ class RubiksCube {
     }
 
     /* Rotates the cube's back face Anti-clockwise */
-    fun verticalBackAntiClockwise(): Unit {
+    fun verticalBackAntiClockwise() {
         for (i in 0..2) {
             verticalBackClockwise()
         }
@@ -84,7 +90,7 @@ class RubiksCube {
 
     /* Rotates the cube's left face clockwise
     *  Input: None, Output: Unit/None */
-    fun verticalLeftFrontRotation(): Unit {
+    fun verticalLeftFrontRotation() {
         cubeDeepCopy = copyCube()
         rubiksCubeModal[5][0] = cubeDeepCopy[0][0]
         rubiksCubeModal[5][2] = cubeDeepCopy[0][2]
@@ -106,7 +112,7 @@ class RubiksCube {
 
     /* Rotates the cube's left face Anti-clockwise
     *  Input: None, Output: Unit/None*/
-    fun verticalLeftBackRotation(): Unit {
+    fun verticalLeftBackRotation() {
         for (i in 0..2) {
             verticalLeftFrontRotation()
         }
@@ -114,7 +120,7 @@ class RubiksCube {
 
     /* Rotates the cube's right face clockwise
     *  Input: None, Output: Unit/None */
-    fun verticalRightFrontRotation(): Unit {
+    fun verticalRightFrontRotation() {
         cubeDeepCopy = copyCube()
         rubiksCubeModal[5][1] = cubeDeepCopy[0][3]
         rubiksCubeModal[5][3] = cubeDeepCopy[0][3]
@@ -136,7 +142,7 @@ class RubiksCube {
 
     /* Rotates the cube's right face Anti-clockwise
     *  Input: None, Output: Unit/None */
-    fun verticalRightBackRotation(): Unit {
+    fun verticalRightBackRotation() {
         for (i in 0..2) {
             verticalRightFrontRotation()
         }
@@ -144,7 +150,7 @@ class RubiksCube {
 
     /* Rotates the cube's top face clockwise
     * Input: None, Output: Unit/None */
-    fun horizontalTopClockwise(): Unit {
+    fun horizontalTopClockwise() {
         cubeDeepCopy = copyCube()
         rubiksCubeModal[5][2] = cubeDeepCopy[1][0]
         rubiksCubeModal[5][3] = cubeDeepCopy[1][2]
@@ -166,7 +172,7 @@ class RubiksCube {
 
     /* Rotates the cube's top face Anti-clockwise
     * * Input: None, Output: Unit/None */
-    fun horizontalTopAntiClockwise(): Unit {
+    fun horizontalTopAntiClockwise() {
         for (i in 0..2) {
             horizontalTopClockwise()
         }
@@ -174,7 +180,7 @@ class RubiksCube {
 
     /* Rotates the cube's bottom face clockwise
     * * Input: None, Output: Unit/None */
-    fun horizontalBottomClockwise(): Unit {
+    fun horizontalBottomClockwise() {
         cubeDeepCopy = copyCube()
         rubiksCubeModal[5][0] = cubeDeepCopy[1][1]
         rubiksCubeModal[5][1] = cubeDeepCopy[1][3]
@@ -196,7 +202,7 @@ class RubiksCube {
 
     /* Rotates the cube's bottom face clockwise
     * * Input: None, Output: Unit/None */
-    fun horizontalBottomAntiClockwise(): Unit {
+    fun horizontalBottomAntiClockwise() {
         for (i in 0..2) {
             horizontalBottomClockwise()
         }
@@ -208,7 +214,7 @@ class RubiksCube {
     * Front face is on the bottom
     * Back face on the top
     * Input: None, Output: Unit/None */
-    fun printCube(): Unit {
+    fun printCube() {
         print(
             "\n" + rubiksCubeModal[4][2] + " " + rubiksCubeModal[4][3] + "\n" +
                     rubiksCubeModal[4][0] + " " + rubiksCubeModal[4][1] + "\n"
@@ -227,52 +233,58 @@ class RubiksCube {
         )
     }
 
-    /* Algorithm to solve the rubiks cube
-    * to be implemented in A2 */
-    fun solve(): Unit {
-        return
-    }
-
-    /* Make a deep copy of the cube*/
+    /* Makes a deep copy of the cube*/
     fun copyCube(): List<Array<String>> {
         return rubiksCubeModal.map { it.clone() }
     }
 
     /* Perform random k rotations to shuffle the cube */
-    fun randomize(k: Int): Unit {
+    fun randomize(k: Int) {
         var previousMove: Int
-        var randomMove: Int = 0
+        var randomMove = 0
         for (i in 0..k) {
             previousMove = randomMove
             randomMove = (0..11).random()
             while (randomMove == previousMove) {
                 randomMove = (0..11).random()
             }
-            if (randomMove == 0) {
-                verticalClockwise()
-            } else if (randomMove == 1) {
-                verticalAntiClockwise()
-            } else if (randomMove == 2) {
-                verticalBackClockwise()
-            } else if (randomMove == 3) {
-                verticalBackAntiClockwise()
-            } else if (randomMove == 4) {
-                verticalLeftFrontRotation()
-            } else if (randomMove == 5) {
-                verticalLeftBackRotation()
-            } else if (randomMove == 6) {
-                verticalRightFrontRotation()
-            } else if (randomMove == 7) {
-                verticalRightBackRotation()
-            } else if (randomMove == 8) {
-                horizontalTopClockwise()
-            } else if (randomMove == 9) {
-                horizontalTopAntiClockwise()
-            } else if (randomMove == 10) {
-                horizontalBottomClockwise()
-            } else {
-                horizontalBottomAntiClockwise()
-            }
+            rotate(randomMove)
         }
     }
+
+    /* provides a deep copy of the
+     cube object */
+    public fun clone(cubeState: List<Array<String>>): RubiksCube {
+        val tempList = cubeState.map { it.clone() }
+        return RubiksCube(tempList)
+    }
+
+    fun evaluateHeuristic(): Float {
+        if (this.isSolved()) return 0.toFloat()
+        val solvedCube: List<Array<String>> = List(6) { i -> Array<String>(4) { CubeColors.values()[i].printableName } }
+        var unmatchedStickers: Int = 0
+        for (i in solvedCube.indices) {
+            for (j in 0 until solvedCube[0].size)
+                if (solvedCube[i][j] != this.rubiksCubeModal[i][j]) unmatchedStickers += 1
+        }
+        return (unmatchedStickers / 8).toFloat()
+    }
+
+    fun rotate(move: Int) {
+        when (move) {
+            0 -> verticalClockwise()
+            1 -> verticalAntiClockwise()
+            2 -> verticalBackClockwise()
+            3 -> verticalBackAntiClockwise()
+            4 -> verticalLeftFrontRotation()
+            5 -> verticalLeftBackRotation()
+            6 -> verticalRightFrontRotation()
+            7 -> verticalRightBackRotation()
+            8 -> horizontalTopClockwise()
+            9 -> horizontalTopAntiClockwise()
+            10 -> horizontalBottomClockwise()
+            11 -> horizontalBottomAntiClockwise()
+        }
+    }
+
 }

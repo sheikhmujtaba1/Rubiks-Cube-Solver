@@ -5,16 +5,10 @@ fun main() {
     }
     print("-------------\n")
     cube.verticalBackClockwise()
-    for (row in cube.rubiksCubeModal) {
-        println(row.contentToString())
-    }
+
     println(cube.isSolved())
     cube.reset()
-    for (row in cube.rubiksCubeModal) {
-        println(row.contentToString())
-    }
-    cube.printCube()
-    cube.verticalClockwise()
-    cube.randomize(2)
-    cube.printCube()
+    //cube.randomize(2)
+    val solver = CubeSolver(cube)
+    solver.solve()
 }
