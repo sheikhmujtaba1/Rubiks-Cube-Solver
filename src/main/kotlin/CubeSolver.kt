@@ -1,37 +1,36 @@
 import java.util.PriorityQueue
 
-class CubeSolver(originalCube: RubiksCube) {
+class CubeSolver() {
 
-    private val cube: RubiksCube = originalCube
-    private val goalState: List<Array<String>> =
-        List(6) { i -> Array<String>(4) { CubeColors.values()[i].printableName } }
-
+    val movesMapping = mapOf<Int, Int>(0 to 1, 1 to 0, 2 to 3, 3 to 2, 4 to 5, 5 to 4)
     /* Algorithm to solve the rubiks cube
     * to be implemented in A2 */
-    fun solve(): Unit {
+    fun solve(root: Node): Int {
+        val initialDepth: Int = root.evaluation.toInt()
         val nodeQueue = PriorityQueue<Node>(NodeComparator)
-        val rootNode = Node(null, cube, -1, 0);
-        val childNode: Node = Node(
-            rootNode,
-            rootNode.state.clone(rootNode.state.rubiksCubeModal), 0,
-            rootNode.pathCost + 1)
-        val childNode1: Node = Node(
-            rootNode,
-            rootNode.state.clone(rootNode.state.rubiksCubeModal), 1,
-            rootNode.pathCost + 1)
-        val childNode2: Node = Node(
-            rootNode,
-            rootNode.state.clone(childNode1.state.rubiksCubeModal), 7,
-            rootNode.pathCost + 1)
-        nodeQueue.add(childNode)
-        nodeQueue.add(childNode1)
-        nodeQueue.add(childNode2)
+        if (root.isSolved) return 0
 
-        while(!nodeQueue.isEmpty()) {
-            println(nodeQueue.remove().evaluation)
+        for (i in 0..5) {
+            nodeQueue.add(Node(root, root.state.clone(root.state.rubiksCubeModal), i, 1))
         }
 
-        return
+        while (!nodeQueue.isEmpty()) {
+            var parentNode: Node = nodeQueue.remove()
+            if (parentNode.isSolved) return parentNode.pathCost
+            for (i in 0..5) {
+                if (i == movesMapping[parentNode.lastMove]) continue else nodeQueue.add(
+                    Node(
+                        parentNode,
+                        parentNode.state.clone(parentNode.state.rubiksCubeModal),
+                        i,
+                        parentNode.pathCost + 1
+                    )
+                )
+            }
+        }
+
+
+        return -1
     }
 
 }

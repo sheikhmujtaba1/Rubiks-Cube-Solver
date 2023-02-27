@@ -5,10 +5,14 @@ fun main() {
     }
     print("-------------\n")
     cube.verticalBackClockwise()
-
-    println(cube.isSolved())
     cube.reset()
-    //cube.randomize(2)
-    val solver = CubeSolver(cube)
-    solver.solve()
+    cube.randomize(5)
+//    cube.rotate(0)
+//    cube.printCube()
+//    cube.rotate(2)
+   // cube.printCube()
+    val rootNode = Node(null, cube, -1, 0);
+    val solver = CubeSolver()
+    print(solver.solve(rootNode))
+
 }

@@ -122,22 +122,22 @@ class RubiksCube {
     *  Input: None, Output: Unit/None */
     fun verticalRightFrontRotation() {
         cubeDeepCopy = copyCube()
-        rubiksCubeModal[5][1] = cubeDeepCopy[0][3]
+        rubiksCubeModal[5][1] = cubeDeepCopy[0][1]
         rubiksCubeModal[5][3] = cubeDeepCopy[0][3]
 
         rubiksCubeModal[2][1] = cubeDeepCopy[5][1]
         rubiksCubeModal[2][3] = cubeDeepCopy[5][3]
 
-        rubiksCubeModal[4][1] = cubeDeepCopy[2][1]
-        rubiksCubeModal[4][3] = cubeDeepCopy[2][3]
+        rubiksCubeModal[4][1] = cubeDeepCopy[2][3]
+        rubiksCubeModal[4][3] = cubeDeepCopy[2][1]
 
         rubiksCubeModal[0][1] = cubeDeepCopy[4][1]
         rubiksCubeModal[0][3] = cubeDeepCopy[4][3]
 
-        rubiksCubeModal[1][0] = cubeDeepCopy[3][2]
-        rubiksCubeModal[3][1] = cubeDeepCopy[3][0]
-        rubiksCubeModal[3][2] = cubeDeepCopy[3][3]
-        rubiksCubeModal[3][3] = cubeDeepCopy[3][1]
+        rubiksCubeModal[1][0] = cubeDeepCopy[1][2]
+        rubiksCubeModal[1][1] = cubeDeepCopy[1][0]
+        rubiksCubeModal[1][2] = cubeDeepCopy[1][3]
+        rubiksCubeModal[1][3] = cubeDeepCopy[1][1]
     }
 
     /* Rotates the cube's right face Anti-clockwise
@@ -240,14 +240,16 @@ class RubiksCube {
 
     /* Perform random k rotations to shuffle the cube */
     fun randomize(k: Int) {
+        val movesMapping = mapOf<Int, Int>(0 to 1, 1 to 0, 2 to 3, 3 to 2, 4 to 5, 5 to 4)
         var previousMove: Int
         var randomMove = 0
-        for (i in 0..k) {
+        for (i in 0 until k) {
             previousMove = randomMove
-            randomMove = (0..11).random()
-            while (randomMove == previousMove) {
-                randomMove = (0..11).random()
+            randomMove = (0..5).random()
+            while (movesMapping[randomMove] == previousMove) {
+                randomMove = (0..5).random()
             }
+            println(randomMove)
             rotate(randomMove)
         }
     }
@@ -274,16 +276,10 @@ class RubiksCube {
         when (move) {
             0 -> verticalClockwise()
             1 -> verticalAntiClockwise()
-            2 -> verticalBackClockwise()
-            3 -> verticalBackAntiClockwise()
-            4 -> verticalLeftFrontRotation()
-            5 -> verticalLeftBackRotation()
-            6 -> verticalRightFrontRotation()
-            7 -> verticalRightBackRotation()
-            8 -> horizontalTopClockwise()
-            9 -> horizontalTopAntiClockwise()
-            10 -> horizontalBottomClockwise()
-            11 -> horizontalBottomAntiClockwise()
+            2 -> verticalRightFrontRotation()
+            3 -> verticalRightBackRotation()
+            4 -> horizontalBottomClockwise()
+            5 -> horizontalBottomAntiClockwise()
         }
     }
 
