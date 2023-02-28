@@ -2,10 +2,10 @@ import java.util.PriorityQueue
 
 class CubeSolver() {
 
+    /* Mapping so that we do not reverse the previous move */
     val movesMapping = mapOf<Int, Int>(0 to 1, 1 to 0, 2 to 3, 3 to 2, 4 to 5, 5 to 4)
 
-    /* Algorithm to solve the rubiks cube
-    * to be implemented in A2 */
+    /* Algorithm to solve the rubiks cube */
     fun solve(root: Node): Int {
         val initialDepth: Int = root.evaluation.toInt()
         println("Initial Depth: $initialDepth")
