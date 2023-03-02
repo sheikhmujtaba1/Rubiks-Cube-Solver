@@ -10,7 +10,7 @@ class CubeSolver() {
         val initialDepth: Int = root.evaluation.toInt()
         val nodeQueue = PriorityQueue<Node>(NodeComparator)
         if (root.isSolved) {
-            println("0,")
+            println("Nodes expanded: 0")
             return 0
         }
 
@@ -23,9 +23,9 @@ class CubeSolver() {
             while (!nodeQueue.isEmpty()) {
                 val parentNode: Node = nodeQueue.remove()
                 if (parentNode.isSolved) {
-                    print("$nodesExpanded,")
-                    //val solutionPath: List<Int> = solutionPath(parentNode)
-                    //println("Solution path: $solutionPath")
+                    println("Nodes Expanded: $nodesExpanded,")
+                    val solutionPath: List<Int> = solutionPath(parentNode)
+                    println("Solution path: $solutionPath")
                     return parentNode.pathCost
                 }
                 nodesExpanded += 1
@@ -39,9 +39,9 @@ class CubeSolver() {
                             parentNode.pathCost + 1
                         )
                         if (childNode.isSolved) {
-                            print("$nodesExpanded,")
-                            //val solutionPath: List<Int> = solutionPath(childNode)
-                            //println("Solution path: $solutionPath")
+                            println("Nodes Expanded: $nodesExpanded,")
+                            val solutionPath: List<Int> = solutionPath(childNode)
+                            println("Solution path: $solutionPath")
                             return childNode.pathCost
                         }
                         if (childNode.evaluation < depth) nodeQueue.add(childNode)

@@ -17,13 +17,13 @@ fun main() {
         for (j in 0..10) {
             val cube = RubiksCube()
             cube.randomize(i)
-            print("$i,")
-            //print("Initial State:")
-            //cube.printCube()
+            println("Scrambling depth: $i")
+            print("Initial State:")
+            cube.printCube()
             val rootNode = Node(null, cube, -1, 0)
             val solver = CubeSolver()
-            val elapsed = measureTimeMillis { print("${solver.solve(rootNode)},") }
-            print("$elapsed\n")
+            val elapsed = measureTimeMillis { println("Solution cost: ${solver.solve(rootNode)}") }
+            println("Time taken(ms): $elapsed\n")
         }
     }
 
