@@ -8,36 +8,61 @@ class CubeSolver() {
     /* Algorithm to solve the rubiks cube */
     fun solve(root: Node): Int {
         val initialDepth: Int = root.evaluation.toInt()
-        println("Initial Depth: $initialDepth")
         val nodeQueue = PriorityQueue<Node>(NodeComparator)
-        if (root.isSolved) return 0
+        if (root.isSolved) {
+            println("0,")
+            return 0
+        }
 
-        for (depth in initialDepth..19) {
+        var nodesExpanded: Int = 0
+        for (depth in initialDepth..15) {
             for (i in 0..5) {
                 nodeQueue.add(Node(root, root.state.clone(root.state.rubiksCubeModal), i, 1))
             }
+
             while (!nodeQueue.isEmpty()) {
-                var parentNode: Node = nodeQueue.remove()
-                if (parentNode.isSolved) return parentNode.pathCost
-                if (parentNode.pathCost < depth) {
-                    for (i in 0..5) {
-                        if (i == movesMapping[parentNode.lastMove]) continue else nodeQueue.add(
-                            Node(
-                                parentNode,
-                                parentNode.state.clone(parentNode.state.rubiksCubeModal),
-                                i,
-                                parentNode.pathCost + 1
-                            )
+                val parentNode: Node = nodeQueue.remove()
+                if (parentNode.isSolved) {
+                    print("$nodesExpanded,")
+                    //val solutionPath: List<Int> = solutionPath(parentNode)
+                    //println("Solution path: $solutionPath")
+                    return parentNode.pathCost
+                }
+                nodesExpanded += 1
+                for (i in 0..5) {
+                    if (i == movesMapping[parentNode.lastMove]) continue
+                    else {
+                        val childNode: Node = Node(
+                            parentNode,
+                            parentNode.state.clone(parentNode.state.rubiksCubeModal),
+                            i,
+                            parentNode.pathCost + 1
                         )
+                        if (childNode.isSolved) {
+                            print("$nodesExpanded,")
+                            //val solutionPath: List<Int> = solutionPath(childNode)
+                            //println("Solution path: $solutionPath")
+                            return childNode.pathCost
+                        }
+                        if (childNode.evaluation < depth) nodeQueue.add(childNode)
+
                     }
                 }
 
             }
         }
 
-
-
         return -1
+    }
+
+    fun solutionPath(node: Node): List<Int> {
+        val moveList: MutableList<Int> = mutableListOf(node.lastMove)
+        var currentNode: Node? = node.parentNode
+        while (currentNode?.parentNode != null) {
+            moveList.add(currentNode!!.lastMove)
+            currentNode = currentNode.parentNode
+        }
+        return moveList
     }
 
 }

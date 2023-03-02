@@ -128,8 +128,8 @@ class RubiksCube {
         rubiksCubeModal[2][1] = cubeDeepCopy[5][1]
         rubiksCubeModal[2][3] = cubeDeepCopy[5][3]
 
-        rubiksCubeModal[4][1] = cubeDeepCopy[2][3]
-        rubiksCubeModal[4][3] = cubeDeepCopy[2][1]
+        rubiksCubeModal[4][1] = cubeDeepCopy[2][1]
+        rubiksCubeModal[4][3] = cubeDeepCopy[2][3]
 
         rubiksCubeModal[0][1] = cubeDeepCopy[4][1]
         rubiksCubeModal[0][3] = cubeDeepCopy[4][3]
@@ -229,7 +229,7 @@ class RubiksCube {
         }
         print(
             "\n" + rubiksCubeModal[5][2] + " " + rubiksCubeModal[5][3] + "\n" +
-                    rubiksCubeModal[5][0] + " " + rubiksCubeModal[5][1]
+                    rubiksCubeModal[5][0] + " " + rubiksCubeModal[5][1]+ "\n"
         )
     }
 
@@ -249,7 +249,6 @@ class RubiksCube {
             while (movesMapping[randomMove] == previousMove) {
                 randomMove = (0..5).random()
             }
-            println(randomMove)
             rotate(randomMove)
         }
     }
